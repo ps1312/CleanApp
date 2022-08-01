@@ -6,8 +6,13 @@
 	objectVersion = 55;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3A88E26E28986097002E02AA /* AddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88E26D28986097002E02AA /* AddAccount.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3A88E2662898602A002E02AA /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A88E26D28986097002E02AA /* AddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +45,7 @@
 		3A88E2672898602A002E02AA /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				3A88E26D28986097002E02AA /* AddAccount.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -86,6 +92,7 @@
 				TargetAttributes = {
 					3A88E2652898602A002E02AA = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -122,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A88E26E28986097002E02AA /* AddAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +259,7 @@
 		3A88E26B2898602A002E02AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -274,6 +283,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -281,6 +291,7 @@
 		3A88E26C2898602A002E02AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
