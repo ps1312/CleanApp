@@ -6,17 +6,12 @@
 	objectVersion = 55;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		3A88E25B28985D0E002E02AA /* CleanApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A88E25A28985D0E002E02AA /* CleanApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		3A88E25728985D0E002E02AA /* CleanApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleanApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A88E25A28985D0E002E02AA /* CleanApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CleanApp.h; sourceTree = "<group>"; };
+		3A88E2662898602A002E02AA /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3A88E25428985D0E002E02AA /* Frameworks */ = {
+		3A88E2632898602A002E02AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,7 +24,7 @@
 		3A88E24D28985D0E002E02AA = {
 			isa = PBXGroup;
 			children = (
-				3A88E25928985D0E002E02AA /* CleanApp */,
+				3A88E2672898602A002E02AA /* Domain */,
 				3A88E25828985D0E002E02AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -37,49 +32,47 @@
 		3A88E25828985D0E002E02AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3A88E25728985D0E002E02AA /* CleanApp.framework */,
+				3A88E2662898602A002E02AA /* Domain.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3A88E25928985D0E002E02AA /* CleanApp */ = {
+		3A88E2672898602A002E02AA /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				3A88E25A28985D0E002E02AA /* CleanApp.h */,
 			);
-			path = CleanApp;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		3A88E25228985D0E002E02AA /* Headers */ = {
+		3A88E2612898602A002E02AA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A88E25B28985D0E002E02AA /* CleanApp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3A88E25628985D0E002E02AA /* CleanApp */ = {
+		3A88E2652898602A002E02AA /* Domain */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A88E25E28985D0E002E02AA /* Build configuration list for PBXNativeTarget "CleanApp" */;
+			buildConfigurationList = 3A88E26A2898602A002E02AA /* Build configuration list for PBXNativeTarget "Domain" */;
 			buildPhases = (
-				3A88E25228985D0E002E02AA /* Headers */,
-				3A88E25328985D0E002E02AA /* Sources */,
-				3A88E25428985D0E002E02AA /* Frameworks */,
-				3A88E25528985D0E002E02AA /* Resources */,
+				3A88E2612898602A002E02AA /* Headers */,
+				3A88E2622898602A002E02AA /* Sources */,
+				3A88E2632898602A002E02AA /* Frameworks */,
+				3A88E2642898602A002E02AA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = CleanApp;
-			productName = CleanApp;
-			productReference = 3A88E25728985D0E002E02AA /* CleanApp.framework */;
+			name = Domain;
+			productName = Domain;
+			productReference = 3A88E2662898602A002E02AA /* Domain.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -91,7 +84,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
-					3A88E25628985D0E002E02AA = {
+					3A88E2652898602A002E02AA = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
@@ -109,13 +102,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3A88E25628985D0E002E02AA /* CleanApp */,
+				3A88E2652898602A002E02AA /* Domain */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3A88E25528985D0E002E02AA /* Resources */ = {
+		3A88E2642898602A002E02AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,7 +118,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3A88E25328985D0E002E02AA /* Sources */ = {
+		3A88E2622898602A002E02AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -255,10 +248,11 @@
 			};
 			name = Release;
 		};
-		3A88E25F28985D0E002E02AA /* Debug */ = {
+		3A88E26B2898602A002E02AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
@@ -270,23 +264,25 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CleanApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		3A88E26028985D0E002E02AA /* Release */ = {
+		3A88E26C2898602A002E02AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
@@ -298,16 +294,17 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CleanApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -323,11 +320,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A88E25E28985D0E002E02AA /* Build configuration list for PBXNativeTarget "CleanApp" */ = {
+		3A88E26A2898602A002E02AA /* Build configuration list for PBXNativeTarget "Domain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3A88E25F28985D0E002E02AA /* Debug */,
-				3A88E26028985D0E002E02AA /* Release */,
+				3A88E26B2898602A002E02AA /* Debug */,
+				3A88E26C2898602A002E02AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
