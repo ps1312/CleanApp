@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AddAccountModel: Encodable {
+public struct AddAccountModel: Model {
     public let name: String
     public let email: String
     public let password: String
