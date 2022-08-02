@@ -10,7 +10,9 @@ public final class RemoteAddAccount {
         self.httpClient = httpClient
     }
 
-    public func add(addAccountModel: AddAccountModel) {
-        httpClient.post(to: url, with: addAccountModel.toData())
+    public func add(addAccountModel: AddAccountModel, completion: @escaping () -> Void) {
+        httpClient.post(to: url, with: addAccountModel.toData()) {
+            completion()
+        }
     }
 }
