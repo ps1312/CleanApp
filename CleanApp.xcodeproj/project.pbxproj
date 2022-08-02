@@ -13,6 +13,9 @@
 		3A88E28B289863A3002E02AA /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2662898602A002E02AA /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A88E290289863ED002E02AA /* RemoteAddAccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88E28F289863ED002E02AA /* RemoteAddAccountTests.swift */; };
 		3A9FBFAB28995D0D001E2914 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAA28995D0D001E2914 /* Model.swift */; };
+		3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */; };
+		3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */; };
+		3A9FBFB128996F17001E2914 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFB028996F17001E2914 /* AccountModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		3A88E27B2898639D002E02AA /* DataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A88E28F289863ED002E02AA /* RemoteAddAccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccountTests.swift; sourceTree = "<group>"; };
 		3A9FBFAA28995D0D001E2914 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccount.swift; sourceTree = "<group>"; };
+		3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPPostClient.swift; sourceTree = "<group>"; };
+		3A9FBFB028996F17001E2914 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				3A88E26D28986097002E02AA /* AddAccount.swift */,
+				3A9FBFB028996F17001E2914 /* AccountModel.swift */,
 				3A9FBFAA28995D0D001E2914 /* Model.swift */,
 			);
 			path = Domain;
@@ -115,6 +122,8 @@
 		3A88E2752898639D002E02AA /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */,
+				3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -226,6 +235,7 @@
 					};
 					3A88E2732898639D002E02AA = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 					3A88E27A2898639D002E02AA = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -283,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A88E26E28986097002E02AA /* AddAccount.swift in Sources */,
+				3A9FBFB128996F17001E2914 /* AccountModel.swift in Sources */,
 				3A9FBFAB28995D0D001E2914 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +302,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */,
+				3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +517,7 @@
 		3A88E2842898639D002E02AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -527,6 +541,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -534,6 +549,7 @@
 		3A88E2852898639D002E02AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -564,6 +580,7 @@
 		3A88E2872898639D002E02AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -588,6 +605,7 @@
 		3A88E2882898639D002E02AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
