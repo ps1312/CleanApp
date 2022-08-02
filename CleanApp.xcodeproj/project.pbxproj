@@ -16,6 +16,7 @@
 		3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */; };
 		3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */; };
 		3A9FBFB128996F17001E2914 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFB028996F17001E2914 /* AccountModel.swift */; };
+		3A9FBFB828999494001E2914 /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFB728999494001E2914 /* DomainError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccount.swift; sourceTree = "<group>"; };
 		3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPPostClient.swift; sourceTree = "<group>"; };
 		3A9FBFB028996F17001E2914 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		3A9FBFB728999494001E2914 /* DomainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				3A9FBFB328996F5A001E2914 /* UseCases */,
 				3A9FBFB428996F62001E2914 /* Models */,
+				3A9FBFB928999498001E2914 /* Errors */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -181,6 +184,14 @@
 				3A88E28F289863ED002E02AA /* RemoteAddAccountTests.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		3A9FBFB928999498001E2914 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				3A9FBFB728999494001E2914 /* DomainError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +345,7 @@
 			files = (
 				3A88E26E28986097002E02AA /* AddAccount.swift in Sources */,
 				3A9FBFB128996F17001E2914 /* AccountModel.swift in Sources */,
+				3A9FBFB828999494001E2914 /* DomainError.swift in Sources */,
 				3A9FBFAB28995D0D001E2914 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

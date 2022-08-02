@@ -7,7 +7,7 @@ class RemoteAddAccountTests: XCTestCase {
         let expectedURL = URL(string: "https://www.url-one.com")!
         let (sut, httpClientSpy) = makeSUT(url: expectedURL)
 
-        sut.add(addAccountModel: makeAddAccountModel()) { }
+        sut.add(addAccountModel: makeAddAccountModel()) { _ in }
 
         XCTAssertEqual(httpClientSpy.requests, [expectedURL])
     }
@@ -22,7 +22,7 @@ class RemoteAddAccountTests: XCTestCase {
             passwordConfirmation: "43214321"
         )
 
-        sut.add(addAccountModel: expectedAddAccountModel) { }
+        sut.add(addAccountModel: expectedAddAccountModel) { _ in }
 
         XCTAssertEqual(httpClientSpy.requestedBody, expectedAddAccountModel.toData())
     }
@@ -35,11 +35,25 @@ class RemoteAddAccountTests: XCTestCase {
 
         httpClientSpy.completionObserver = { exp1.fulfill() }
 
-        sut.add(addAccountModel: makeAddAccountModel()) { exp2.fulfill() }
+        sut.add(addAccountModel: makeAddAccountModel()) { _ in exp2.fulfill() }
 
         httpClientSpy.completeRequest()
 
         wait(for: [exp1, exp2], timeout: 0.1, enforceOrder: true)
+    }
+
+    func testAddCompletesWithErrorWhenRequestFails() {
+        let exp = expectation(description: "waiting for completion")
+        let (sut, httpClientSpy) = makeSUT()
+
+        sut.add(addAccountModel: makeAddAccountModel()) { error in
+            XCTAssertEqual(error, DomainError.unexpected)
+            exp.fulfill()
+        }
+
+        httpClientSpy.completeRequest()
+
+        wait(for: [exp], timeout: 0.1)
     }
 
     private func makeSUT(url: URL = URL(string: "https://www.any-url.com")!) -> (sut: RemoteAddAccount, httpClientSpy: HTTPClientSpy) {
@@ -67,7 +81,7 @@ class HTTPClientSpy: HTTPPostClient {
         requestsCompletions.append(completion)
     }
 
-    func completeRequest() {
+    func completeRequest(with error: DomainError = .unexpected) {
         completionObserver?()
         requestsCompletions[0]()
     }
