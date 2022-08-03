@@ -43,17 +43,26 @@ class RemoteAddAccountTests: XCTestCase {
     }
 
     func testAddCompletesWithErrorWhenRequestFails() {
-        let exp = expectation(description: "waiting for completion")
         let (sut, httpClientSpy) = makeSUT()
 
-        sut.add(addAccountModel: makeAddAccountModel()) { error in
-            XCTAssertEqual(error, DomainError.unexpected)
-            exp.fulfill()
-        }
+        var capturedError: DomainError? = nil
+        sut.add(addAccountModel: makeAddAccountModel()) { capturedError = $0 }
 
         httpClientSpy.completeRequest()
 
-        wait(for: [exp], timeout: 0.1)
+        XCTAssertEqual(capturedError, DomainError.unexpected)
+    }
+
+    func testAddCompletesWithErrorWhenRequestSucceedsWithInvalidJSON() {
+        let invalidData = "invalid JSON response".data(using: .utf8)!
+        let (sut, httpClientSpy) = makeSUT()
+
+        var capturedError: DomainError? = nil
+        sut.add(addAccountModel: makeAddAccountModel()) { capturedError = $0 }
+
+        httpClientSpy.completeRequest(with: invalidData)
+
+        XCTAssertEqual(capturedError, DomainError.invalidData)
     }
 
     private func makeSUT(url: URL = URL(string: "https://www.any-url.com")!) -> (sut: RemoteAddAccount, httpClientSpy: HTTPClientSpy) {
@@ -71,10 +80,10 @@ class RemoteAddAccountTests: XCTestCase {
 class HTTPClientSpy: HTTPPostClient {
     var requests = [URL]()
     var requestedBody: Data? = nil
-    var requestsCompletions = [() -> Void]()
+    var requestsCompletions = [(Result<Data, Error>) -> Void]()
     var completionObserver: (() -> Void)? = nil
 
-    func post(to url: URL, with data: Data?, completion: @escaping () -> Void) {
+    func post(to url: URL, with data: Data?, completion: @escaping (Result<Data, Error>) -> Void) {
         requests.append(url)
         requestedBody = data
 
@@ -83,6 +92,10 @@ class HTTPClientSpy: HTTPPostClient {
 
     func completeRequest(with error: DomainError = .unexpected) {
         completionObserver?()
-        requestsCompletions[0]()
+        requestsCompletions[0](.failure(error))
+    }
+
+    func completeRequest(with data: Data) {
+        requestsCompletions[0](.success(data))
     }
 }
