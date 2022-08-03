@@ -76,7 +76,7 @@ class RemoteAddAccountTests: XCTestCase {
 
     func testAddDoesNotCompleteIfSUTHasBeenDeallocated() {
         let httpClientSpy = HTTPClientSpy()
-        var sut: RemoteAddAccount? = RemoteAddAccount(url: URL(string: "https://www.any-url.com")!, httpClient: httpClientSpy)
+        var sut: RemoteAddAccount? = RemoteAddAccount(url: makeURL(), httpClient: httpClientSpy)
 
         var capturedResult: Result<AccountModel, DomainError>? = nil
         sut?.add(addAccountModel: makeAddAccountModel()) { capturedResult = $0 }
@@ -107,21 +107,27 @@ class RemoteAddAccountTests: XCTestCase {
         action()
     }
 
-    private func makeSUT(url: URL = URL(string: "https://www.any-url.com")!) -> (sut: RemoteAddAccount, httpClientSpy: HTTPClientSpy) {
+    private func makeSUT(url: URL = makeURL()) -> (sut: RemoteAddAccount, httpClientSpy: HTTPClientSpy) {
         let httpClientSpy = HTTPClientSpy()
         let sut = RemoteAddAccount(url: url, httpClient: httpClientSpy)
 
-        addTeardownBlock { [weak sut, weak httpClientSpy] in
-            XCTAssertNil(sut)
-            XCTAssertNil(httpClientSpy)
-        }
+        testMemoryLeak(instance: sut)
+        testMemoryLeak(instance: httpClientSpy)
 
         return (sut, httpClientSpy)
     }
 
-    func makeAddAccountModel(accountName: String = "any name", accountEmail: String = "any@mail.com") -> AddAccountModel {
+    private func makeAddAccountModel(accountName: String = "any name", accountEmail: String = "any@mail.com") -> AddAccountModel {
         return AddAccountModel(name: accountName, email: accountEmail, password: "12341234", passwordConfirmation: "12341234")
     }
+
+    private func testMemoryLeak(instance: AnyObject) {
+        addTeardownBlock { [weak instance] in XCTAssertNil(instance) }
+    }
+}
+
+func makeURL() -> URL {
+    return URL(string: "https://www.any-url.com")!
 }
 
 class HTTPClientSpy: HTTPPostClient {
