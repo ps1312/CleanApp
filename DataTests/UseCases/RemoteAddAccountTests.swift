@@ -46,7 +46,12 @@ class RemoteAddAccountTests: XCTestCase {
         let (sut, httpClientSpy) = makeSUT()
 
         var capturedError: DomainError? = nil
-        sut.add(addAccountModel: makeAddAccountModel()) { capturedError = $0 }
+        sut.add(addAccountModel: makeAddAccountModel()) { result in
+            switch (result) {
+            case .failure(let receivedError): capturedError = receivedError
+            case .success: XCTFail("Expected account add to fail, instead got success")
+            }
+        }
 
         httpClientSpy.completeRequest()
 
@@ -58,11 +63,39 @@ class RemoteAddAccountTests: XCTestCase {
         let (sut, httpClientSpy) = makeSUT()
 
         var capturedError: DomainError? = nil
-        sut.add(addAccountModel: makeAddAccountModel()) { capturedError = $0 }
+        sut.add(addAccountModel: makeAddAccountModel()) { result in
+            switch (result) {
+            case .failure(let receivedError): capturedError = receivedError
+            case .success: XCTFail("Expected account add to fail, instead got success")
+            }
+        }
 
         httpClientSpy.completeRequest(with: invalidData)
 
         XCTAssertEqual(capturedError, DomainError.invalidData)
+    }
+
+    func testAddCompletesWithAccountModelOnSuccess() {
+        let expectedName = "specific name"
+        let expectedEmail = "specific@mail.com"
+        let expectedToken = "auth token #1"
+
+        let expectedAccountModel = AccountModel(name: expectedName, email: expectedEmail, token: expectedToken)
+        let expectedApiData = AddAccountApiResult(accessToken: expectedToken, name: expectedName).toData()!
+
+        let (sut, httpClientSpy) = makeSUT()
+
+        var capturedAccount: AccountModel? = nil
+        sut.add(addAccountModel: makeAddAccountModel(accountName: expectedName, accountEmail: expectedEmail)) { result in
+            switch (result) {
+            case .success(let receivedAccount): capturedAccount = receivedAccount
+            case .failure: XCTFail("Expect account add to succeed, instead got failure")
+            }
+        }
+
+        httpClientSpy.completeRequest(with: expectedApiData)
+
+        XCTAssertEqual(capturedAccount, expectedAccountModel)
     }
 
     private func makeSUT(url: URL = URL(string: "https://www.any-url.com")!) -> (sut: RemoteAddAccount, httpClientSpy: HTTPClientSpy) {
@@ -72,8 +105,8 @@ class RemoteAddAccountTests: XCTestCase {
         return (sut, httpClientSpy)
     }
 
-    func makeAddAccountModel() -> AddAccountModel {
-        return AddAccountModel(name: "any name", email: "any@mail.com", password: "12341234", passwordConfirmation: "12341234")
+    func makeAddAccountModel(accountName: String = "any name", accountEmail: String = "any@mail.com") -> AddAccountModel {
+        return AddAccountModel(name: accountName, email: accountEmail, password: "12341234", passwordConfirmation: "12341234")
     }
 }
 
