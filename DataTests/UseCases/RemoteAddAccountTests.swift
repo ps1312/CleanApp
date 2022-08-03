@@ -37,7 +37,7 @@ class RemoteAddAccountTests: XCTestCase {
 
         sut.add(addAccountModel: makeAddAccountModel()) { _ in exp2.fulfill() }
 
-        httpClientSpy.completeRequest(with: .unexpected)
+        httpClientSpy.completeRequest(with: DomainError.unexpected)
 
         wait(for: [exp1, exp2], timeout: 0.1, enforceOrder: true)
     }
@@ -46,7 +46,7 @@ class RemoteAddAccountTests: XCTestCase {
         let (sut, httpClientSpy) = makeSUT()
 
         assertAddResult(sut, with: makeAddAccountModel(), resultsIn: .failure(.unexpected), when: {
-            httpClientSpy.completeRequest(with: .unexpected)
+            httpClientSpy.completeRequest(with: DomainError.unexpected)
         })
     }
 
@@ -54,7 +54,7 @@ class RemoteAddAccountTests: XCTestCase {
         let (sut, httpClientSpy) = makeSUT()
 
         assertAddResult(sut, with: makeAddAccountModel(), resultsIn: .failure(.invalidData), when: {
-            httpClientSpy.completeRequest(with: "invalid JSON response".data(using: .utf8)!)
+            httpClientSpy.completeRequest(with: makeInvalidData())
         })
     }
 
@@ -82,7 +82,7 @@ class RemoteAddAccountTests: XCTestCase {
         sut?.add(addAccountModel: makeAddAccountModel()) { capturedResult = $0 }
         sut = nil
 
-        httpClientSpy.completeRequest(with: .unexpected)
+        httpClientSpy.completeRequest(with: DomainError.unexpected)
 
         XCTAssertNil(capturedResult)
     }
@@ -120,35 +120,6 @@ class RemoteAddAccountTests: XCTestCase {
     private func makeAddAccountModel(accountName: String = "any name", accountEmail: String = "any@mail.com") -> AddAccountModel {
         return AddAccountModel(name: accountName, email: accountEmail, password: "12341234", passwordConfirmation: "12341234")
     }
-
-    private func testMemoryLeak(instance: AnyObject) {
-        addTeardownBlock { [weak instance] in XCTAssertNil(instance) }
-    }
 }
 
-func makeURL() -> URL {
-    return URL(string: "https://www.any-url.com")!
-}
 
-class HTTPClientSpy: HTTPPostClient {
-    var requests = [URL]()
-    var requestedBody: Data? = nil
-    var requestsCompletions = [(Result<Data, Error>) -> Void]()
-    var completionObserver: (() -> Void)? = nil
-
-    func post(to url: URL, with data: Data?, completion: @escaping (Result<Data, Error>) -> Void) {
-        requests.append(url)
-        requestedBody = data
-
-        requestsCompletions.append(completion)
-    }
-
-    func completeRequest(with error: DomainError) {
-        completionObserver?()
-        requestsCompletions[0](.failure(error))
-    }
-
-    func completeRequest(with data: Data) {
-        requestsCompletions[0](.success(data))
-    }
-}
