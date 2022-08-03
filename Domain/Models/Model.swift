@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Model: Encodable {}
+public protocol Model: Encodable, Equatable {}
 
 public extension Model {
     func toData() -> Data? {
