@@ -74,6 +74,19 @@ class RemoteAddAccountTests: XCTestCase {
         })
     }
 
+    func testAddDoesNotCompleteIfSUTHasBeenDeallocated() {
+        let httpClientSpy = HTTPClientSpy()
+        var sut: RemoteAddAccount? = RemoteAddAccount(url: URL(string: "https://www.any-url.com")!, httpClient: httpClientSpy)
+
+        var capturedResult: Result<AccountModel, DomainError>? = nil
+        sut?.add(addAccountModel: makeAddAccountModel()) { capturedResult = $0 }
+        sut = nil
+
+        httpClientSpy.completeRequest(with: .unexpected)
+
+        XCTAssertNil(capturedResult)
+    }
+
     private func assertAddResult(
         _ sut: RemoteAddAccount,
         with addAccountModel: AddAccountModel,
