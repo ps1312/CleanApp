@@ -98,6 +98,11 @@ class RemoteAddAccountTests: XCTestCase {
         let httpClientSpy = HTTPClientSpy()
         let sut = RemoteAddAccount(url: url, httpClient: httpClientSpy)
 
+        addTeardownBlock { [weak sut, weak httpClientSpy] in
+            XCTAssertNil(sut)
+            XCTAssertNil(httpClientSpy)
+        }
+
         return (sut, httpClientSpy)
     }
 
