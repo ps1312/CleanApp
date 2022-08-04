@@ -7,3 +7,7 @@ func makeURL() -> URL {
 func makeInvalidData() -> Data {
     return "invalid JSON response".data(using: .utf8)!
 }
+
+func makeValidData() -> Data {
+    return "{\"email\":\"example@com\"}".data(using: .utf8)!
+}
