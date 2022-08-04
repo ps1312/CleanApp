@@ -17,45 +17,46 @@ class AlamofireAdapter {
 class AlamofireAdapterTests: XCTestCase {
 
     func testPostMakesRequestWithCorrectParameters() {
-        let exp = expectation(description: "waiting for request observation")
         let expectedURL = URL(string: "https://www.specific-url.com")!
 
-        let sessionConfiguration = URLSessionConfiguration.default
-        sessionConfiguration.protocolClasses = [URLProtocolStub.self]
-
-        let sut = AlamofireAdapter(session: Session(configuration: sessionConfiguration))
-
-        sut.post(to: expectedURL, with: makeValidData())
-
-        URLProtocolStub.observeRequest = { capturedRequest in
+        assertRequestParameters(url: expectedURL, data: makeValidData()) { capturedRequest in
             XCTAssertEqual(capturedRequest?.url, expectedURL)
             XCTAssertEqual(capturedRequest?.method, .post)
             XCTAssertNotNil(capturedRequest?.httpBodyStream)
+        }
+    }
+
+    func testPostMakesRequestWithoutBody() {
+        assertRequestParameters(data: nil) { capturedRequest in
+            XCTAssertNil(capturedRequest?.httpBodyStream)
+        }
+    }
+
+    private func assertRequestParameters(url: URL = makeURL(), data: Data?, observeHandler: @escaping (URLRequest?) -> Void) {
+        let exp = expectation(description: "waiting for request observation")
+
+        let sut = makeSUT()
+
+        sut.post(to: url, with: data)
+
+        URLProtocolStub.observeRequest = { capturedRequest in
+            observeHandler(capturedRequest)
             exp.fulfill()
         }
 
         wait(for: [exp], timeout: 0.1)
     }
 
-    func testPostMakesRequestWithoutBody() {
-        let exp = expectation(description: "waiting for request observation")
-        let expectedURL = URL(string: "https://www.specific-url.com")!
-
+    private func makeSUT() -> AlamofireAdapter {
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.protocolClasses = [URLProtocolStub.self]
 
         let sut = AlamofireAdapter(session: Session(configuration: sessionConfiguration))
 
-        sut.post(to: expectedURL, with: nil)
+        testMemoryLeak(instance: sut)
 
-        URLProtocolStub.observeRequest = { capturedRequest in
-            XCTAssertNil(capturedRequest?.httpBodyStream)
-            exp.fulfill()
-        }
-
-        wait(for: [exp], timeout: 0.1)
+        return sut
     }
-
 }
 
 class URLProtocolStub: URLProtocol {
