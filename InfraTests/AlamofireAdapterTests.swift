@@ -9,7 +9,7 @@ class AlamofireAdapter {
     }
 
     func post(to url: URL) {
-        session.request(url).resume()
+        session.request(url, method: .post).resume()
     }
 }
 
@@ -26,8 +26,9 @@ class AlamofireAdapterTests: XCTestCase {
 
         sut.post(to: expectedURL)
 
-        URLProtocolStub.observeRequest = { capturedURL in
-            XCTAssertEqual(capturedURL, expectedURL)
+        URLProtocolStub.observeRequest = { capturedRequest in
+            XCTAssertEqual(capturedRequest?.url, expectedURL)
+            XCTAssertEqual(capturedRequest?.method, .post)
             exp.fulfill()
         }
 
@@ -38,14 +39,14 @@ class AlamofireAdapterTests: XCTestCase {
 
 class URLProtocolStub: URLProtocol {
 
-    static var observeRequest: ((URL?) -> Void)? = nil
+    static var observeRequest: ((URLRequest?) -> Void)? = nil
 
     override class func canInit(with request: URLRequest) -> Bool { return true }
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { return request }
 
     override func startLoading() {
-        URLProtocolStub.observeRequest?(request.url)
+        URLProtocolStub.observeRequest?(request)
     }
 
     override func stopLoading() { }
