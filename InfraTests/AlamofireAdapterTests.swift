@@ -15,7 +15,7 @@ class AlamofireAdapter {
 
 class AlamofireAdapterTests: XCTestCase {
 
-    func testPostMakesRequestWithCorrectURL() {
+    func testPostMakesRequestWithCorrectURLAndMethod() {
         let exp = expectation(description: "waiting for request observation")
         let expectedURL = URL(string: "https://www.specific-url.com")!
 
