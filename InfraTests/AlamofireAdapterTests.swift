@@ -9,11 +9,20 @@ class AlamofireAdapter {
         self.session = session
     }
 
-    func post(to url: URL, with data: Data?, completion: @escaping (HTTPError) -> Void) {
+    func post(to url: URL, with data: Data?, completion: @escaping (Result<Data, HTTPError>) -> Void) {
         session
             .request(url, method: .post, parameters: convertToDict(data), encoding: JSONEncoding.default)
             .responseData { dataResponse in
-                completion(.noConnection)
+                if dataResponse.error != nil || dataResponse.response == nil {
+                    completion(.failure(.noConnection))
+                    return
+                }
+
+                if let data = dataResponse.data {
+                    completion(.success(data))
+                    return
+                }
+
             }.resume()
     }
 
@@ -23,6 +32,9 @@ class AlamofireAdapter {
 }
 
 class AlamofireAdapterTests: XCTestCase {
+    override func tearDown() {
+        URLProtocolStub.resetStub()
+    }
 
     func testPostMakesRequestWithCorrectParameters() {
         let expectedURL = URL(string: "https://www.specific-url.com")!
@@ -40,12 +52,47 @@ class AlamofireAdapterTests: XCTestCase {
         }
     }
 
-    func testPostCompleteWithConnectionErrorOnRequestFailure() {
+    func testPostCompletesWithConnectionErrorOnInvalidCases() {
+        assertRequestFailure(error: nil, response: nil, data: nil)
+        assertRequestFailure(error: makeError(), response: makeHTTPURLResponse(), data: makeValidData())
+
+        assertRequestFailure(error: makeError(), response: nil, data: nil)
+        assertRequestFailure(error: nil, response: makeHTTPURLResponse(), data: nil)
+        assertRequestFailure(error: nil, response: nil, data: makeValidData())
+
+        assertRequestFailure(error: makeError(), response: makeHTTPURLResponse(), data: nil)
+        assertRequestFailure(error: makeError(), response: nil, data: makeValidData())
+    }
+
+    func testPostCompletesWithDataOnRequestSuccess() {
         let exp = expectation(description: "waiting for completion")
+
+        let sut = makeSUT()
+        let expectedData = "expected data".data(using: .utf8)!
+
+        URLProtocolStub.error = nil
+        URLProtocolStub.response = makeHTTPURLResponse()
+        URLProtocolStub.data = expectedData
+
+        sut.post(to: makeURL(), with: makeValidData()) { capturedResult in
+            XCTAssertEqual(capturedResult, .success(expectedData))
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 0.1)
+    }
+
+    private func assertRequestFailure(error: Error?, response: URLResponse?, data: Data?) {
+        let exp = expectation(description: "waiting for completion")
+
         let sut = makeSUT()
 
-        sut.post(to: makeURL(), with: makeValidData()) { capturedError in
-            XCTAssertEqual(capturedError, .noConnection)
+        URLProtocolStub.error = error
+        URLProtocolStub.response = response
+        URLProtocolStub.data = data
+
+        sut.post(to: makeURL(), with: makeValidData()) { capturedResult in
+            XCTAssertEqual(capturedResult, .failure(.noConnection))
             exp.fulfill()
         }
 
@@ -83,12 +130,33 @@ class URLProtocolStub: URLProtocol {
 
     static var observeRequest: ((URLRequest?) -> Void)? = nil
 
+    static var error: Error? = nil
+    static var response: URLResponse? = nil
+    static var data: Data? = nil
+
+    static func resetStub() {
+        URLProtocolStub.error = nil
+        URLProtocolStub.response = nil
+        URLProtocolStub.data = nil
+    }
+
     override class func canInit(with request: URLRequest) -> Bool { return true }
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { return request }
 
     override func startLoading() {
         URLProtocolStub.observeRequest?(request)
+
+        if let response = URLProtocolStub.response {
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        }
+        if let data = URLProtocolStub.data {
+            client?.urlProtocol(self, didLoad: data)
+        }
+        if let error = URLProtocolStub.error {
+            client?.urlProtocol(self, didFailWithError: error)
+        }
+
         client?.urlProtocolDidFinishLoading(self)
     }
 

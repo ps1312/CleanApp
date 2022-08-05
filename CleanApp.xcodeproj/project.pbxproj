@@ -10,7 +10,6 @@
 		3A2C2653289B159800DD8EBB /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2652289B159800DD8EBB /* HTTPClientSpy.swift */; };
 		3A2C2662289B2CF100DD8EBB /* Infra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C265A289B2CF100DD8EBB /* Infra.framework */; };
 		3A2C2667289B2CF100DD8EBB /* AlamofireAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2666289B2CF100DD8EBB /* AlamofireAdapterTests.swift */; };
-		3A2C2671289B32F500DD8EBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2C2670289B32F500DD8EBB /* Alamofire */; };
 		3A2C2673289B347D00DD8EBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2C2672289B347D00DD8EBB /* Alamofire */; };
 		3A4428C1289C53370042F5B0 /* TestFactories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE22150289B14F000CBE25B /* TestFactories.swift */; };
 		3A4428C2289C55CD0042F5B0 /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE2214E289B14BD00CBE25B /* TestExtensions.swift */; };
@@ -129,7 +128,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2C2671289B32F500DD8EBB /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +376,6 @@
 			);
 			name = Domain;
 			packageProductDependencies = (
-				3A2C2670289B32F500DD8EBB /* Alamofire */,
 			);
 			productName = Domain;
 			productReference = 3A88E2662898602A002E02AA /* Domain.framework */;
@@ -1051,11 +1048,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3A2C2670289B32F500DD8EBB /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A2C266F289B32F500DD8EBB /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		3A2C2672289B347D00DD8EBB /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3A2C266F289B32F500DD8EBB /* XCRemoteSwiftPackageReference "Alamofire" */;
