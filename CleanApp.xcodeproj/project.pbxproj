@@ -14,6 +14,9 @@
 		3A2C2673289B347D00DD8EBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2C2672289B347D00DD8EBB /* Alamofire */; };
 		3A4428C1289C53370042F5B0 /* TestFactories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE22150289B14F000CBE25B /* TestFactories.swift */; };
 		3A4428C2289C55CD0042F5B0 /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE2214E289B14BD00CBE25B /* TestExtensions.swift */; };
+		3A4428C4289C946C0042F5B0 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4428C3289C946C0042F5B0 /* HTTPError.swift */; };
+		3A4428C5289C95050042F5B0 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2742898639D002E02AA /* Data.framework */; };
+		3A4428C6289C95050042F5B0 /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2742898639D002E02AA /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A88E26E28986097002E02AA /* AddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88E26D28986097002E02AA /* AddAccount.swift */; };
 		3A88E27C2898639D002E02AA /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2742898639D002E02AA /* Data.framework */; };
 		3A88E28A289863A3002E02AA /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2662898602A002E02AA /* Domain.framework */; };
@@ -36,6 +39,13 @@
 			remoteGlobalIDString = 3A2C2659289B2CF100DD8EBB;
 			remoteInfo = Infra;
 		};
+		3A4428C7289C95050042F5B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A88E24E28985D0E002E02AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A88E2732898639D002E02AA;
+			remoteInfo = Data;
+		};
 		3A88E27D2898639D002E02AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A88E24E28985D0E002E02AA /* Project object */;
@@ -53,6 +63,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3A4428C9289C95050042F5B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A4428C6289C95050042F5B0 /* Data.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A88E28E289863A3002E02AA /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +92,7 @@
 		3A2C265A289B2CF100DD8EBB /* Infra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2C2661289B2CF100DD8EBB /* InfraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2C2666289B2CF100DD8EBB /* AlamofireAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAdapterTests.swift; sourceTree = "<group>"; };
+		3A4428C3289C946C0042F5B0 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
 		3A88E2662898602A002E02AA /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A88E26D28986097002E02AA /* AddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccount.swift; sourceTree = "<group>"; };
 		3A88E2742898639D002E02AA /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4428C5289C95050042F5B0 /* Data.framework in Frameworks */,
 				3A2C2673289B347D00DD8EBB /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */,
+				3A4428C3289C946C0042F5B0 /* HTTPError.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -306,10 +330,12 @@
 				3A2C2656289B2CF100DD8EBB /* Sources */,
 				3A2C2657289B2CF100DD8EBB /* Frameworks */,
 				3A2C2658289B2CF100DD8EBB /* Resources */,
+				3A4428C9289C95050042F5B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3A4428C8289C95050042F5B0 /* PBXTargetDependency */,
 			);
 			name = Infra;
 			packageProductDependencies = (
@@ -523,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */,
+				3A4428C4289C946C0042F5B0 /* HTTPError.swift in Sources */,
 				3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,6 +572,11 @@
 			isa = PBXTargetDependency;
 			target = 3A2C2659289B2CF100DD8EBB /* Infra */;
 			targetProxy = 3A2C2663289B2CF100DD8EBB /* PBXContainerItemProxy */;
+		};
+		3A4428C8289C95050042F5B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A88E2732898639D002E02AA /* Data */;
+			targetProxy = 3A4428C7289C95050042F5B0 /* PBXContainerItemProxy */;
 		};
 		3A88E27E2898639D002E02AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

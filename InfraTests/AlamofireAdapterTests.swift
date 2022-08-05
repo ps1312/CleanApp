@@ -1,5 +1,6 @@
 import XCTest
 import Alamofire
+import Data
 
 class AlamofireAdapter {
     let session: Session
@@ -8,9 +9,16 @@ class AlamofireAdapter {
         self.session = session
     }
 
-    func post(to url: URL, with data: Data?) {
-        let json = data == nil ? nil : try? JSONSerialization.jsonObject(with: data!, options: .fragmentsAllowed) as? [String: Any]
-        session.request(url, method: .post, parameters: json, encoding: JSONEncoding.default).resume()
+    func post(to url: URL, with data: Data?, completion: @escaping (HTTPError) -> Void) {
+        session
+            .request(url, method: .post, parameters: convertToDict(data), encoding: JSONEncoding.default)
+            .responseData { dataResponse in
+                completion(.noConnection)
+            }.resume()
+    }
+
+    private func convertToDict(_ data: Data?) -> [String: Any]? {
+        return data == nil ? nil : try? JSONSerialization.jsonObject(with: data!, options: .fragmentsAllowed) as? [String: Any]
     }
 }
 
@@ -32,12 +40,24 @@ class AlamofireAdapterTests: XCTestCase {
         }
     }
 
+    func testPostCompleteWithConnectionErrorOnRequestFailure() {
+        let exp = expectation(description: "waiting for completion")
+        let sut = makeSUT()
+
+        sut.post(to: makeURL(), with: makeValidData()) { capturedError in
+            XCTAssertEqual(capturedError, .noConnection)
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 0.1)
+    }
+
     private func assertRequestParameters(url: URL = makeURL(), data: Data?, observeHandler: @escaping (URLRequest?) -> Void) {
         let exp = expectation(description: "waiting for request observation")
 
         let sut = makeSUT()
 
-        sut.post(to: url, with: data)
+        sut.post(to: url, with: data) { _ in }
 
         URLProtocolStub.observeRequest = { capturedRequest in
             observeHandler(capturedRequest)
@@ -69,6 +89,7 @@ class URLProtocolStub: URLProtocol {
 
     override func startLoading() {
         URLProtocolStub.observeRequest?(request)
+        client?.urlProtocolDidFinishLoading(self)
     }
 
     override func stopLoading() { }

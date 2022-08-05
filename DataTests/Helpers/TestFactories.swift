@@ -11,3 +11,7 @@ func makeInvalidData() -> Data {
 func makeValidData() -> Data {
     return "{\"email\":\"example@com\"}".data(using: .utf8)!
 }
+
+func makeError() -> Error {
+    return NSError(domain: "domain", code: 1)
+}
