@@ -2,7 +2,7 @@ import XCTest
 import Alamofire
 import Data
 
-class AlamofireAdapter {
+class AlamofireAdapter: HTTPPostClient {
     let session: Session
 
     init(session: Session = .default) {
@@ -13,16 +13,27 @@ class AlamofireAdapter {
         session
             .request(url, method: .post, parameters: convertToDict(data), encoding: JSONEncoding.default)
             .responseData { dataResponse in
-                if dataResponse.error != nil || dataResponse.response == nil {
+                guard let response = dataResponse.response, let data = dataResponse.data else {
                     completion(.failure(.noConnection))
                     return
                 }
 
-                if let data = dataResponse.data {
+                switch (response.statusCode) {
+                case 200:
                     completion(.success(data))
-                    return
+                case 401:
+                    completion(.failure(.unauthorized))
+                case 403:
+                    completion(.failure(.forbidden))
+                case 404:
+                    completion(.failure(.notFound))
+                case 400...499:
+                    completion(.failure(.badRequest))
+                case 500...599:
+                    completion(.failure(.serverError))
+                default:
+                    completion(.failure(.noConnection))
                 }
-
             }.resume()
     }
 
@@ -53,36 +64,36 @@ class AlamofireAdapterTests: XCTestCase {
     }
 
     func testPostCompletesWithConnectionErrorOnInvalidCases() {
-        assertRequestFailure(error: nil, response: nil, data: nil)
-        assertRequestFailure(error: makeError(), response: makeHTTPURLResponse(), data: makeValidData())
+        assertRequestResult(error: nil, response: nil, data: nil, expectedResult: .failure(.noConnection))
+        assertRequestResult(error: makeError(), response: makeHTTPURLResponse(), data: makeValidData(), expectedResult: .failure(.noConnection))
 
-        assertRequestFailure(error: makeError(), response: nil, data: nil)
-        assertRequestFailure(error: nil, response: makeHTTPURLResponse(), data: nil)
-        assertRequestFailure(error: nil, response: nil, data: makeValidData())
+        assertRequestResult(error: makeError(), response: nil, data: nil, expectedResult: .failure(.noConnection))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(), data: nil, expectedResult: .failure(.noConnection))
+        assertRequestResult(error: nil, response: nil, data: makeValidData(), expectedResult: .failure(.noConnection))
 
-        assertRequestFailure(error: makeError(), response: makeHTTPURLResponse(), data: nil)
-        assertRequestFailure(error: makeError(), response: nil, data: makeValidData())
+        assertRequestResult(error: makeError(), response: makeHTTPURLResponse(), data: nil, expectedResult: .failure(.noConnection))
+        assertRequestResult(error: makeError(), response: nil, data: makeValidData(), expectedResult: .failure(.noConnection))
+    }
+
+    func testPostCompletesWithCorrectHTTPErrors() {
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 400), data: makeValidData(), expectedResult: .failure(.badRequest))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 401), data: makeValidData(), expectedResult: .failure(.unauthorized))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 403), data: makeValidData(), expectedResult: .failure(.forbidden))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 404), data: makeValidData(), expectedResult: .failure(.notFound))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 405), data: makeValidData(), expectedResult: .failure(.badRequest))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 499), data: makeValidData(), expectedResult: .failure(.badRequest))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 500), data: makeValidData(), expectedResult: .failure(.serverError))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 501), data: makeValidData(), expectedResult: .failure(.serverError))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 599), data: makeValidData(), expectedResult: .failure(.serverError))
     }
 
     func testPostCompletesWithDataOnRequestSuccess() {
-        let exp = expectation(description: "waiting for completion")
-
-        let sut = makeSUT()
         let expectedData = "expected data".data(using: .utf8)!
 
-        URLProtocolStub.error = nil
-        URLProtocolStub.response = makeHTTPURLResponse()
-        URLProtocolStub.data = expectedData
-
-        sut.post(to: makeURL(), with: makeValidData()) { capturedResult in
-            XCTAssertEqual(capturedResult, .success(expectedData))
-            exp.fulfill()
-        }
-
-        wait(for: [exp], timeout: 0.1)
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(), data: expectedData, expectedResult: .success(expectedData))
     }
 
-    private func assertRequestFailure(error: Error?, response: URLResponse?, data: Data?) {
+    private func assertRequestResult(error: Error?, response: URLResponse?, data: Data?, expectedResult: Result<Data, HTTPError>) {
         let exp = expectation(description: "waiting for completion")
 
         let sut = makeSUT()
@@ -92,7 +103,7 @@ class AlamofireAdapterTests: XCTestCase {
         URLProtocolStub.data = data
 
         sut.post(to: makeURL(), with: makeValidData()) { capturedResult in
-            XCTAssertEqual(capturedResult, .failure(.noConnection))
+            XCTAssertEqual(capturedResult, expectedResult)
             exp.fulfill()
         }
 

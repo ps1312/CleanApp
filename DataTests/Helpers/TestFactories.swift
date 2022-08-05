@@ -16,6 +16,6 @@ func makeError() -> Error {
     return NSError(domain: "domain", code: 1)
 }
 
-func makeHTTPURLResponse() -> HTTPURLResponse? {
-    return HTTPURLResponse(url: makeURL(), statusCode: 200, httpVersion: nil, headerFields: nil)
+func makeHTTPURLResponse(statusCode: Int = 200) -> HTTPURLResponse? {
+    return HTTPURLResponse(url: makeURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
 }
