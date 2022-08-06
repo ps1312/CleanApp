@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A20DEE2289F1EB800DD8062 /* DataIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */; };
+		3A20DEE3289F1EB800DD8062 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2742898639D002E02AA /* Data.framework */; };
 		3A2C2653289B159800DD8EBB /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2652289B159800DD8EBB /* HTTPClientSpy.swift */; };
 		3A2C2662289B2CF100DD8EBB /* Infra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C265A289B2CF100DD8EBB /* Infra.framework */; };
 		3A2C2667289B2CF100DD8EBB /* AlamofireAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2666289B2CF100DD8EBB /* AlamofireAdapterTests.swift */; };
@@ -33,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3A20DEE4289F1EB800DD8062 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A88E24E28985D0E002E02AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A88E2732898639D002E02AA;
+			remoteInfo = Data;
+		};
 		3A2C2663289B2CF100DD8EBB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A88E24E28985D0E002E02AA /* Project object */;
@@ -89,6 +98,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3A20DEDF289F1EB800DD8062 /* DataIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataIntegrationTests.swift; sourceTree = "<group>"; };
 		3A2C2652289B159800DD8EBB /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		3A2C265A289B2CF100DD8EBB /* Infra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2C2661289B2CF100DD8EBB /* InfraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +122,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3A20DEDC289F1EB800DD8062 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A20DEE3289F1EB800DD8062 /* Data.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A2C2657289B2CF100DD8EBB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +173,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A20DEE0289F1EB800DD8062 /* DataIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */,
+			);
+			path = DataIntegrationTests;
+			sourceTree = "<group>";
+		};
 		3A2C2651289B158200DD8EBB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +237,7 @@
 				3A88E2672898602A002E02AA /* Domain */,
 				3A88E2752898639D002E02AA /* Data */,
 				3A88E27F2898639D002E02AA /* DataTests */,
+				3A20DEE0289F1EB800DD8062 /* DataIntegrationTests */,
 				3A2C265B289B2CF100DD8EBB /* Infra */,
 				3A2C2665289B2CF100DD8EBB /* InfraTests */,
 				3A88E25828985D0E002E02AA /* Products */,
@@ -225,6 +253,7 @@
 				3A88E27B2898639D002E02AA /* DataTests.xctest */,
 				3A2C265A289B2CF100DD8EBB /* Infra.framework */,
 				3A2C2661289B2CF100DD8EBB /* InfraTests.xctest */,
+				3A20DEDF289F1EB800DD8062 /* DataIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -342,6 +371,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3A20DEDE289F1EB800DD8062 /* DataIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A20DEE8289F1EB800DD8062 /* Build configuration list for PBXNativeTarget "DataIntegrationTests" */;
+			buildPhases = (
+				3A20DEDB289F1EB800DD8062 /* Sources */,
+				3A20DEDC289F1EB800DD8062 /* Frameworks */,
+				3A20DEDD289F1EB800DD8062 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A20DEE5289F1EB800DD8062 /* PBXTargetDependency */,
+			);
+			name = DataIntegrationTests;
+			productName = DataIntegrationTests;
+			productReference = 3A20DEDF289F1EB800DD8062 /* DataIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3A2C2659289B2CF100DD8EBB /* Infra */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A2C266D289B2CF100DD8EBB /* Build configuration list for PBXNativeTarget "Infra" */;
@@ -451,6 +498,9 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					3A20DEDE289F1EB800DD8062 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 					3A2C2659289B2CF100DD8EBB = {
 						CreatedOnToolsVersion = 13.4.1;
 						LastSwiftMigration = 1340;
@@ -491,6 +541,7 @@
 				3A88E2652898602A002E02AA /* Domain */,
 				3A88E2732898639D002E02AA /* Data */,
 				3A88E27A2898639D002E02AA /* DataTests */,
+				3A20DEDE289F1EB800DD8062 /* DataIntegrationTests */,
 				3A2C2659289B2CF100DD8EBB /* Infra */,
 				3A2C2660289B2CF100DD8EBB /* InfraTests */,
 			);
@@ -498,6 +549,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3A20DEDD289F1EB800DD8062 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A2C2658289B2CF100DD8EBB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -536,6 +594,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3A20DEDB289F1EB800DD8062 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A20DEE2289F1EB800DD8062 /* DataIntegrationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A2C2656289B2CF100DD8EBB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -590,6 +656,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3A20DEE5289F1EB800DD8062 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A88E2732898639D002E02AA /* Data */;
+			targetProxy = 3A20DEE4289F1EB800DD8062 /* PBXContainerItemProxy */;
+		};
 		3A2C2664289B2CF100DD8EBB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A2C2659289B2CF100DD8EBB /* Infra */;
@@ -613,6 +684,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3A20DEE6289F1EB800DD8062 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99FHZVWMRA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DataIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3A20DEE7289F1EB800DD8062 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99FHZVWMRA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DataIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		3A2C2669289B2CF100DD8EBB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1010,6 +1115,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3A20DEE8289F1EB800DD8062 /* Build configuration list for PBXNativeTarget "DataIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A20DEE6289F1EB800DD8062 /* Debug */,
+				3A20DEE7289F1EB800DD8062 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3A2C266D289B2CF100DD8EBB /* Build configuration list for PBXNativeTarget "Infra" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
