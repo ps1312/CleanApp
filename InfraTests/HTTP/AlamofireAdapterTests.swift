@@ -30,8 +30,6 @@ class AlamofireAdapterTests: XCTestCase {
 
         assertRequestResult(error: makeError(), response: makeHTTPURLResponse(), data: nil, expectedResult: .failure(.noConnection))
         assertRequestResult(error: makeError(), response: nil, data: makeValidData(), expectedResult: .failure(.noConnection))
-
-        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 600), data: makeValidData(), expectedResult: .failure(.noConnection))
     }
 
     func testPostCompletesWithCorrectHTTPErrors() {
@@ -44,6 +42,7 @@ class AlamofireAdapterTests: XCTestCase {
         assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 500), data: makeValidData(), expectedResult: .failure(.serverError))
         assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 501), data: makeValidData(), expectedResult: .failure(.serverError))
         assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 599), data: makeValidData(), expectedResult: .failure(.serverError))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 600), data: makeValidData(), expectedResult: .failure(.noConnection))
     }
 
     func testPostCompletesWithDataOnRequestSuccess() {
