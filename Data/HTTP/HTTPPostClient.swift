@@ -2,5 +2,5 @@ import Foundation
 import Domain
 
 public protocol HTTPPostClient {
-    func post(to url: URL, with data: Data?, completion: @escaping (Result<Data, Error>) -> Void)
+    func post(to url: URL, with data: Data?, completion: @escaping (Result<Data, HTTPError>) -> Void)
 }
