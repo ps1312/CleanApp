@@ -37,7 +37,7 @@ class RemoteAddAccountTests: XCTestCase {
 
         sut.add(addAccountModel: makeAddAccountModel()) { _ in exp2.fulfill() }
 
-        httpClientSpy.completeRequest(with: DomainError.unexpected)
+        httpClientSpy.completeRequest(with: HTTPError.noConnection)
 
         wait(for: [exp1, exp2], timeout: 0.1, enforceOrder: true)
     }
@@ -46,7 +46,7 @@ class RemoteAddAccountTests: XCTestCase {
         let (sut, httpClientSpy) = makeSUT()
 
         assertAddResult(sut, with: makeAddAccountModel(), resultsIn: .failure(.unexpected), when: {
-            httpClientSpy.completeRequest(with: DomainError.unexpected)
+            httpClientSpy.completeRequest(with: HTTPError.noConnection)
         })
     }
 
@@ -82,7 +82,7 @@ class RemoteAddAccountTests: XCTestCase {
         sut?.add(addAccountModel: makeAddAccountModel()) { capturedResult = $0 }
         sut = nil
 
-        httpClientSpy.completeRequest(with: DomainError.unexpected)
+        httpClientSpy.completeRequest(with: HTTPError.noConnection)
 
         XCTAssertNil(capturedResult)
     }
