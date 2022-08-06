@@ -4,10 +4,6 @@ import Data
 import Infra
 
 class AlamofireAdapterTests: XCTestCase {
-    override func tearDown() {
-        URLProtocolStub.resetStub()
-    }
-
     func testPostMakesRequestWithCorrectParameters() {
         let expectedURL = URL(string: "https://www.specific-url.com")!
 
@@ -87,6 +83,8 @@ class AlamofireAdapterTests: XCTestCase {
     }
 
     private func makeSUT() -> AlamofireAdapter {
+        URLProtocolStub.resetStub()
+
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.protocolClasses = [URLProtocolStub.self]
 

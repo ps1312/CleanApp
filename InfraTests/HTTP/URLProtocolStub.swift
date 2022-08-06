@@ -3,7 +3,6 @@ import Foundation
 class URLProtocolStub: URLProtocol {
 
     static var observeRequest: ((URLRequest?) -> Void)? = nil
-
     static var error: Error? = nil
     static var response: URLResponse? = nil
     static var data: Data? = nil
@@ -12,6 +11,7 @@ class URLProtocolStub: URLProtocol {
         URLProtocolStub.error = nil
         URLProtocolStub.response = nil
         URLProtocolStub.data = nil
+        URLProtocolStub.observeRequest = nil
     }
 
     override class func canInit(with request: URLRequest) -> Bool { return true }
