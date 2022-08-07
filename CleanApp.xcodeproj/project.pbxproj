@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A20DEE2289F1EB800DD8062 /* DataIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */; };
+		3A20DEE2289F1EB800DD8062 /* RemoteAddAccountIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20DEE1289F1EB800DD8062 /* RemoteAddAccountIntegrationTests.swift */; };
 		3A20DEE3289F1EB800DD8062 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88E2742898639D002E02AA /* Data.framework */; };
 		3A2C2653289B159800DD8EBB /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2652289B159800DD8EBB /* HTTPClientSpy.swift */; };
 		3A2C2662289B2CF100DD8EBB /* Infra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C265A289B2CF100DD8EBB /* Infra.framework */; };
@@ -99,7 +99,7 @@
 
 /* Begin PBXFileReference section */
 		3A20DEDF289F1EB800DD8062 /* DataIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataIntegrationTests.swift; sourceTree = "<group>"; };
+		3A20DEE1289F1EB800DD8062 /* RemoteAddAccountIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccountIntegrationTests.swift; sourceTree = "<group>"; };
 		3A2C2652289B159800DD8EBB /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		3A2C265A289B2CF100DD8EBB /* Infra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2C2661289B2CF100DD8EBB /* InfraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,7 +176,7 @@
 		3A20DEE0289F1EB800DD8062 /* DataIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A20DEE1289F1EB800DD8062 /* DataIntegrationTests.swift */,
+				3A20DEE1289F1EB800DD8062 /* RemoteAddAccountIntegrationTests.swift */,
 			);
 			path = DataIntegrationTests;
 			sourceTree = "<group>";
@@ -598,7 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A20DEE2289F1EB800DD8062 /* DataIntegrationTests.swift in Sources */,
+				3A20DEE2289F1EB800DD8062 /* RemoteAddAccountIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@ import Data
 import Domain
 import Infra
 
-class DataIntegrationTests: XCTestCase {
+class RemoteAddAccountIntegrationTests: XCTestCase {
 
     func testRemoteAddAccountWorkdsCorrectly() {
         let exp = expectation(description: "wait for request completion")
