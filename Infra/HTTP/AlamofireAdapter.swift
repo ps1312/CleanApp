@@ -13,7 +13,17 @@ public class AlamofireAdapter: HTTPPostClient {
         session
             .request(url, method: .post, parameters: convertToDict(data), encoding: JSONEncoding.default)
             .responseData { dataResponse in
-                guard let response = dataResponse.response, let data = dataResponse.data else {
+                guard let response = dataResponse.response else {
+                    completion(.failure(.noConnection))
+                    return
+                }
+
+                guard let data = dataResponse.data else {
+                    if (response.statusCode == 204) {
+                        completion(.success(Data()))
+                        return
+                    }
+
                     completion(.failure(.noConnection))
                     return
                 }

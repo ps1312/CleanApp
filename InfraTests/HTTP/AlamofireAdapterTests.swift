@@ -46,9 +46,8 @@ class AlamofireAdapterTests: XCTestCase {
     }
 
     func testPostCompletesWithDataOnRequestSuccess() {
-        let expectedData = "expected data".data(using: .utf8)!
-
-        assertRequestResult(error: nil, response: makeHTTPURLResponse(), data: expectedData, expectedResult: .success(expectedData))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(), data: makeValidData(), expectedResult: .success(makeValidData()))
+        assertRequestResult(error: nil, response: makeHTTPURLResponse(statusCode: 204), data: Data(), expectedResult: .success(Data()))
     }
 
     private func assertRequestResult(error: Error?, response: URLResponse?, data: Data?, expectedResult: Result<Data, HTTPError>) {
