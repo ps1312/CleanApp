@@ -2,6 +2,17 @@ import XCTest
 import Presentation
 
 class SignupPresenterTests: XCTestCase {
+    func testSignUpDisplaysInvalidEmailError() {
+        let invalidEmailSignupViewModel = makeSignupViewModel(email: "invalid_email")
+        let (sut, alertViewSpy, emailValidatorSpy) = makeSUT()
+
+        emailValidatorSpy.simulate(validation: false)
+
+        sut.signUp(viewModel: invalidEmailSignupViewModel)
+
+        XCTAssertEqual(alertViewSpy.viewModel, AlertViewModel(title: "Falha na validação!", message: "Email inválido."))
+    }
+
     func testSignUpDisplaysRequiredErrorWhenFieldsAreNil() {
         assertRequiredValidationError(
             signupViewModel: SignupViewModel(name: nil, email: "email@mail.com", password: "12341234", passwordConfirmation: "12341234"),
@@ -46,13 +57,24 @@ class SignupPresenterTests: XCTestCase {
         )
     }
 
-    func assertRequiredValidationError(signupViewModel: SignupViewModel, expectedAlertViewModel: AlertViewModel) {
+    func makeSUT() -> (SignupPresenter, AlertViewSpy, EmailValidatorSpy) {
+        let emailValidatorSpy = EmailValidatorSpy()
         let alertViewSpy = AlertViewSpy()
-        let sut = SignupPresenter(alertView: alertViewSpy)
+        let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy)
+
+        return (sut, alertViewSpy, emailValidatorSpy)
+    }
+
+    func assertRequiredValidationError(signupViewModel: SignupViewModel, expectedAlertViewModel: AlertViewModel) {
+        let (sut, alertViewSpy, _) = makeSUT()
 
         sut.signUp(viewModel: signupViewModel)
 
         XCTAssertEqual(alertViewSpy.viewModel, expectedAlertViewModel)
+    }
+
+    func makeSignupViewModel(name: String? = "name", email: String? = "email@mail.com", password: String? = "12341234", passwordConfirmation: String? = "12341234") -> SignupViewModel {
+        return SignupViewModel(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation)
     }
 }
 
@@ -61,5 +83,17 @@ class AlertViewSpy: AlertView {
 
     func showMessage(viewModel: AlertViewModel) {
         self.viewModel = viewModel
+    }
+}
+
+class EmailValidatorSpy: EmailValidator {
+    var isEmailValid = true
+
+    func simulate(validation: Bool) {
+        isEmailValid = validation
+    }
+
+    func validate(email: String) -> Bool {
+        return isEmailValid
     }
 }

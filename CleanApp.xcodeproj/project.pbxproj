@@ -29,6 +29,7 @@
 		3A8B702928A3120300AA1B1D /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B702828A3120300AA1B1D /* PresentationTests.swift */; };
 		3A8B703228A325E900AA1B1D /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B703128A325E900AA1B1D /* SignupPresenter.swift */; };
 		3A8B703428A3264600AA1B1D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B703328A3264600AA1B1D /* AlertView.swift */; };
+		3A8B703928A32A7D00AA1B1D /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B703828A32A7D00AA1B1D /* EmailValidator.swift */; };
 		3A9FBFAB28995D0D001E2914 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAA28995D0D001E2914 /* Model.swift */; };
 		3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */; };
 		3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */; };
@@ -128,6 +129,7 @@
 		3A8B702828A3120300AA1B1D /* PresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTests.swift; sourceTree = "<group>"; };
 		3A8B703128A325E900AA1B1D /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
 		3A8B703328A3264600AA1B1D /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		3A8B703828A32A7D00AA1B1D /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		3A9FBFAA28995D0D001E2914 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccount.swift; sourceTree = "<group>"; };
 		3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPPostClient.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 		3A8B701D28A3120300AA1B1D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				3A8B703728A32A7100AA1B1D /* Validators */,
 				3A8B703628A326FA00AA1B1D /* Presenters */,
 				3A8B703528A326F200AA1B1D /* Views */,
 			);
@@ -360,6 +363,14 @@
 				3A8B703128A325E900AA1B1D /* SignupPresenter.swift */,
 			);
 			path = Presenters;
+			sourceTree = "<group>";
+		};
+		3A8B703728A32A7100AA1B1D /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				3A8B703828A32A7D00AA1B1D /* EmailValidator.swift */,
+			);
+			path = Validators;
 			sourceTree = "<group>";
 		};
 		3A9FBFB228996F4F001E2914 /* UseCases */ = {
@@ -793,6 +804,7 @@
 			files = (
 				3A8B703228A325E900AA1B1D /* SignupPresenter.swift in Sources */,
 				3A8B703428A3264600AA1B1D /* AlertView.swift in Sources */,
+				3A8B703928A32A7D00AA1B1D /* EmailValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
