@@ -27,6 +27,8 @@
 		3A88E290289863ED002E02AA /* RemoteAddAccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88E28F289863ED002E02AA /* RemoteAddAccountTests.swift */; };
 		3A8B702428A3120300AA1B1D /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8B701C28A3120300AA1B1D /* Presentation.framework */; };
 		3A8B702928A3120300AA1B1D /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B702828A3120300AA1B1D /* PresentationTests.swift */; };
+		3A8B703228A325E900AA1B1D /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B703128A325E900AA1B1D /* SignupPresenter.swift */; };
+		3A8B703428A3264600AA1B1D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B703328A3264600AA1B1D /* AlertView.swift */; };
 		3A9FBFAB28995D0D001E2914 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAA28995D0D001E2914 /* Model.swift */; };
 		3A9FBFAD28996E85001E2914 /* RemoteAddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */; };
 		3A9FBFAF28996EAC001E2914 /* HTTPPostClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */; };
@@ -124,6 +126,8 @@
 		3A8B701C28A3120300AA1B1D /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8B702328A3120300AA1B1D /* PresentationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PresentationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8B702828A3120300AA1B1D /* PresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTests.swift; sourceTree = "<group>"; };
+		3A8B703128A325E900AA1B1D /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
+		3A8B703328A3264600AA1B1D /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		3A9FBFAA28995D0D001E2914 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3A9FBFAC28996E85001E2914 /* RemoteAddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAddAccount.swift; sourceTree = "<group>"; };
 		3A9FBFAE28996EAC001E2914 /* HTTPPostClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPPostClient.swift; sourceTree = "<group>"; };
@@ -328,6 +332,8 @@
 		3A8B701D28A3120300AA1B1D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				3A8B703628A326FA00AA1B1D /* Presenters */,
+				3A8B703528A326F200AA1B1D /* Views */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -338,6 +344,22 @@
 				3A8B702828A3120300AA1B1D /* PresentationTests.swift */,
 			);
 			path = PresentationTests;
+			sourceTree = "<group>";
+		};
+		3A8B703528A326F200AA1B1D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3A8B703328A3264600AA1B1D /* AlertView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3A8B703628A326FA00AA1B1D /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				3A8B703128A325E900AA1B1D /* SignupPresenter.swift */,
+			);
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 		3A9FBFB228996F4F001E2914 /* UseCases */ = {
@@ -611,6 +633,7 @@
 					};
 					3A8B701B28A3120300AA1B1D = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 					3A8B702228A3120300AA1B1D = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -768,6 +791,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A8B703228A325E900AA1B1D /* SignupPresenter.swift in Sources */,
+				3A8B703428A3264600AA1B1D /* AlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1246,6 +1271,7 @@
 		3A8B702B28A3120300AA1B1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1269,6 +1295,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1276,6 +1303,7 @@
 		3A8B702C28A3120300AA1B1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1306,6 +1334,7 @@
 		3A8B702D28A3120300AA1B1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
@@ -1323,6 +1352,7 @@
 		3A8B702E28A3120300AA1B1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
