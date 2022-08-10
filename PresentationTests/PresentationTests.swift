@@ -96,6 +96,11 @@ class SignupPresenterTests: XCTestCase {
     ) -> SignupPresenter {
         let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy, addAccount: addAccountSpy)
 
+        testMemoryLeak(instance: sut)
+        testMemoryLeak(instance: alertViewSpy)
+        testMemoryLeak(instance: emailValidatorSpy)
+        testMemoryLeak(instance: addAccountSpy)
+
         return sut
     }
 
