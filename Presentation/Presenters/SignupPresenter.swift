@@ -34,8 +34,11 @@ public final class SignupPresenter {
         }
 
         if let email = viewModel.email, !emailValidator.validate(email) {
-            alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: "Email inválido."))
             return "Email inválido."
+        }
+
+        if viewModel.password != viewModel.passwordConfirmation {
+            return "As senhas devem ser iguais."
         }
 
         return nil
