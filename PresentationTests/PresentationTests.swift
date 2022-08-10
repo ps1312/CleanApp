@@ -3,12 +3,13 @@ import Presentation
 
 class SignupPresenterTests: XCTestCase {
     func testSignUpDisplaysInvalidEmailError() {
-        let invalidEmailSignupViewModel = makeSignupViewModel(email: "invalid_email")
-        let (sut, alertViewSpy, emailValidatorSpy) = makeSUT()
+        let alertViewSpy = AlertViewSpy()
+        let emailValidatorSpy = EmailValidatorSpy()
+        let sut = makeSUT(alertViewSpy: alertViewSpy, emailValidatorSpy: emailValidatorSpy)
 
         emailValidatorSpy.simulate(validation: false)
 
-        sut.signUp(viewModel: invalidEmailSignupViewModel)
+        sut.signUp(viewModel: makeSignupViewModel())
 
         XCTAssertEqual(alertViewSpy.viewModel, AlertViewModel(title: "Falha na validação!", message: "Email inválido."))
     }
@@ -64,16 +65,15 @@ class SignupPresenterTests: XCTestCase {
         )
     }
 
-    func makeSUT() -> (SignupPresenter, AlertViewSpy, EmailValidatorSpy) {
-        let emailValidatorSpy = EmailValidatorSpy()
-        let alertViewSpy = AlertViewSpy()
+    func makeSUT(alertViewSpy: AlertViewSpy = AlertViewSpy(), emailValidatorSpy: EmailValidatorSpy = EmailValidatorSpy()) -> SignupPresenter {
         let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy)
 
-        return (sut, alertViewSpy, emailValidatorSpy)
+        return sut
     }
 
     func assertAlertViewModel(signupViewModel: SignupViewModel, expectedAlertViewModel: AlertViewModel) {
-        let (sut, alertViewSpy, _) = makeSUT()
+        let alertViewSpy = AlertViewSpy()
+        let sut = makeSUT(alertViewSpy: alertViewSpy)
 
         sut.signUp(viewModel: signupViewModel)
 
