@@ -9,7 +9,7 @@ public final class SignupPresenter {
         self.emailValidator = emailValidator
     }
 
-    public func signUp(viewModel: SignupViewModel) {
+    public func signup(viewModel: SignupViewModel) {
         if let message = validate(viewModel: viewModel) {
             alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: message))
             return

@@ -2,26 +2,26 @@ import XCTest
 import Presentation
 
 class SignupPresenterTests: XCTestCase {
-    func testSignUpDisplaysInvalidEmailError() {
+    func testSignupDisplaysInvalidEmailError() {
         let alertViewSpy = AlertViewSpy()
         let emailValidatorSpy = EmailValidatorSpy()
         let sut = makeSUT(alertViewSpy: alertViewSpy, emailValidatorSpy: emailValidatorSpy)
 
         emailValidatorSpy.simulate(validation: false)
 
-        sut.signUp(viewModel: makeSignupViewModel())
+        sut.signup(viewModel: makeSignupViewModel())
 
         XCTAssertEqual(alertViewSpy.viewModel, AlertViewModel(title: "Falha na validação!", message: "Email inválido."))
     }
 
-    func testSignUpDisplaysPasswordsDontMatchError() {
+    func testSignupDisplaysPasswordsDontMatchError() {
         assertAlertViewModel(
             signupViewModel: makeSignupViewModel(password: "12341234", passwordConfirmation: "senhasenha"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "As senhas devem ser iguais.")
         )
     }
 
-    func testSignUpDisplaysRequiredErrorWhenFieldsAreNil() {
+    func testSignupDisplaysRequiredErrorWhenFieldsAreNil() {
         assertAlertViewModel(
             signupViewModel: SignupViewModel(name: nil, email: "email@mail.com", password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Nome é obrigatório.")
@@ -43,7 +43,7 @@ class SignupPresenterTests: XCTestCase {
         )
     }
 
-    func testSignUpDisplaysRequiredErrorWhenFieldsAreEmpty() {
+    func testSignupDisplaysRequiredErrorWhenFieldsAreEmpty() {
         assertAlertViewModel(
             signupViewModel: SignupViewModel(name: "", email: "email@mail.com", password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Nome é obrigatório.")
@@ -75,7 +75,7 @@ class SignupPresenterTests: XCTestCase {
         let alertViewSpy = AlertViewSpy()
         let sut = makeSUT(alertViewSpy: alertViewSpy)
 
-        sut.signUp(viewModel: signupViewModel)
+        sut.signup(viewModel: signupViewModel)
 
         XCTAssertEqual(alertViewSpy.viewModel, expectedAlertViewModel)
     }
