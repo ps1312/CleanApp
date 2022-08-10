@@ -67,12 +67,17 @@ class SignupPresenterTests: XCTestCase {
     }
 
     func testSignupExecutesAddAccountUsecaseOnValidSubmission() {
+        let expectedName = "a name"
+        let expectedEmail = "email@test.com"
+        let expectedPwd = "test@123"
+        let expectedPwdConfirmation = "test@123"
         let addAccountSpy = AddAccountSpy()
         let sut = makeSUT(addAccountSpy: addAccountSpy)
 
-        sut.signup(viewModel: makeSignupViewModel())
+        sut.signup(viewModel: makeSignupViewModel(name: expectedName, email: expectedEmail, password: expectedPwd, passwordConfirmation: expectedPwdConfirmation))
 
-        XCTAssertEqual(addAccountSpy.calls, 1)
+        let expectedAddAccountModel = AddAccountModel(name: expectedName, email: expectedEmail, password: expectedPwd, passwordConfirmation: expectedPwdConfirmation)
+        XCTAssertEqual(addAccountSpy.requests, [expectedAddAccountModel])
     }
 
     func makeSUT(
@@ -119,12 +124,10 @@ class EmailValidatorSpy: EmailValidator {
     }
 }
 
-// 2.0
-
 class AddAccountSpy: AddAccount {
-    var calls = 0
+    var requests = [AddAccountModel]()
 
     func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, Error>) -> Void) {
-        self.calls += 1
+        requests.append(addAccountModel)
     }
 }
