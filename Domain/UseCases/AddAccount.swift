@@ -14,6 +14,6 @@ public struct AddAccountModel: Model {
     }
 }
 
-protocol AddAccount {
+public protocol AddAccount {
     func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, Error>) -> Void)
 }

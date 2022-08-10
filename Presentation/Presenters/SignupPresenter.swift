@@ -1,12 +1,15 @@
 import Foundation
+import Domain
 
 public final class SignupPresenter {
     public let alertView: AlertView
     public let emailValidator: EmailValidator
+    public let addAccount: AddAccount
 
-    public init(alertView: AlertView, emailValidator: EmailValidator) {
+    public init(alertView: AlertView, emailValidator: EmailValidator, addAccount: AddAccount) {
         self.alertView = alertView
         self.emailValidator = emailValidator
+        self.addAccount = addAccount
     }
 
     public func signup(viewModel: SignupViewModel) {
@@ -14,6 +17,14 @@ public final class SignupPresenter {
             alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: message))
             return
         }
+
+        let addAccountModel = AddAccountModel(
+            name: viewModel.name!,
+            email: viewModel.email!,
+            password: viewModel.password!,
+            passwordConfirmation: viewModel.passwordConfirmation!
+        )
+        addAccount.add(addAccountModel: addAccountModel) { _ in }
     }
 
     func validate(viewModel: SignupViewModel) -> String? {

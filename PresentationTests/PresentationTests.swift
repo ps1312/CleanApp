@@ -1,5 +1,6 @@
 import XCTest
 import Presentation
+@testable import Domain
 
 class SignupPresenterTests: XCTestCase {
     func testSignupDisplaysInvalidEmailError() {
@@ -65,8 +66,21 @@ class SignupPresenterTests: XCTestCase {
         )
     }
 
-    func makeSUT(alertViewSpy: AlertViewSpy = AlertViewSpy(), emailValidatorSpy: EmailValidatorSpy = EmailValidatorSpy()) -> SignupPresenter {
-        let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy)
+    func testSignupExecutesAddAccountUsecaseOnValidSubmission() {
+        let addAccountSpy = AddAccountSpy()
+        let sut = makeSUT(addAccountSpy: addAccountSpy)
+
+        sut.signup(viewModel: makeSignupViewModel())
+
+        XCTAssertEqual(addAccountSpy.calls, 1)
+    }
+
+    func makeSUT(
+        alertViewSpy: AlertViewSpy = AlertViewSpy(),
+        emailValidatorSpy: EmailValidatorSpy = EmailValidatorSpy(),
+        addAccountSpy: AddAccountSpy = AddAccountSpy()
+    ) -> SignupPresenter {
+        let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy, addAccount: addAccountSpy)
 
         return sut
     }
@@ -102,5 +116,15 @@ class EmailValidatorSpy: EmailValidator {
 
     func validate(_ email: String) -> Bool {
         return isEmailValid
+    }
+}
+
+// 2.0
+
+class AddAccountSpy: AddAccount {
+    var calls = 0
+
+    func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, Error>) -> Void) {
+        self.calls += 1
     }
 }
