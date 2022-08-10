@@ -93,7 +93,7 @@ class EmailValidatorSpy: EmailValidator {
         isEmailValid = validation
     }
 
-    func validate(email: String) -> Bool {
+    func validate(_ email: String) -> Bool {
         return isEmailValid
     }
 }
