@@ -24,7 +24,9 @@ public final class SignupPresenter {
             password: viewModel.password!,
             passwordConfirmation: viewModel.passwordConfirmation!
         )
-        addAccount.add(addAccountModel: addAccountModel) { _ in }
+        addAccount.add(addAccountModel: addAccountModel) { result in
+            alertView.showMessage(viewModel: AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
+        }
     }
 
     func validate(viewModel: SignupViewModel) -> String? {

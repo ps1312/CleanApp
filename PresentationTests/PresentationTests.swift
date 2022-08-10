@@ -77,7 +77,16 @@ class SignupPresenterTests: XCTestCase {
         sut.signup(viewModel: makeSignupViewModel(name: expectedName, email: expectedEmail, password: expectedPwd, passwordConfirmation: expectedPwdConfirmation))
 
         let expectedAddAccountModel = AddAccountModel(name: expectedName, email: expectedEmail, password: expectedPwd, passwordConfirmation: expectedPwdConfirmation)
-        XCTAssertEqual(addAccountSpy.requests, [expectedAddAccountModel])
+        XCTAssertEqual(addAccountSpy.calls, [expectedAddAccountModel])
+    }
+
+    func testSignupDisplaysErrorOnSubmissionFail() {
+        let alertViewSpy = AlertViewSpy()
+        let sut = makeSUT(alertViewSpy: alertViewSpy)
+
+        sut.signup(viewModel: makeSignupViewModel())
+
+        XCTAssertEqual(alertViewSpy.viewModel, AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
     }
 
     func makeSUT(
@@ -125,9 +134,10 @@ class EmailValidatorSpy: EmailValidator {
 }
 
 class AddAccountSpy: AddAccount {
-    var requests = [AddAccountModel]()
+    var calls = [AddAccountModel]()
 
-    func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, Error>) -> Void) {
-        requests.append(addAccountModel)
+    func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, DomainError>) -> Void) {
+        calls.append(addAccountModel)
+        completion(.failure(.unexpected))
     }
 }
