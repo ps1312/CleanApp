@@ -10,6 +10,13 @@ public final class SignupPresenter {
     }
 
     public func signUp(viewModel: SignupViewModel) {
+        if let message = validate(viewModel: viewModel) {
+            alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: message))
+            return
+        }
+    }
+
+    func validate(viewModel: SignupViewModel) -> String? {
         var fieldName: String? = nil
 
         if (viewModel.name == nil || viewModel.name == "") {
@@ -23,14 +30,15 @@ public final class SignupPresenter {
         }
 
         if let fieldName = fieldName {
-            alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: "O campo \(fieldName) é obrigatório."))
-            return
+            return "O campo \(fieldName) é obrigatório."
         }
 
         if let email = viewModel.email, !emailValidator.validate(email) {
             alertView.showMessage(viewModel: AlertViewModel(title: "Falha na validação!", message: "Email inválido."))
-            return
+            return "Email inválido."
         }
+
+        return nil
     }
 }
 
