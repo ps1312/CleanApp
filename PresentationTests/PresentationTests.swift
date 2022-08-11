@@ -81,23 +81,41 @@ class SignupPresenterTests: XCTestCase {
     }
 
     func testSignupDisplaysErrorOnSubmissionFail() {
+        let addAccountSpy = AddAccountSpy()
         let alertViewSpy = AlertViewSpy()
-        let sut = makeSUT(alertViewSpy: alertViewSpy)
+        let sut = makeSUT(alertViewSpy: alertViewSpy, addAccountSpy: addAccountSpy)
 
         sut.signup(viewModel: makeSignupViewModel())
 
+        addAccountSpy.completeWithError()
+
         XCTAssertEqual(alertViewSpy.viewModel, AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
+    }
+
+    func testSignupDisplaysLoadingWhileSubmitting() {
+        let addAccountSpy = AddAccountSpy()
+        let loadingViewSpy = LoadingViewSpy()
+        let sut = makeSUT(addAccountSpy: addAccountSpy, loadingViewSpy: loadingViewSpy)
+
+        sut.signup(viewModel: makeSignupViewModel())
+
+        XCTAssertEqual(loadingViewSpy.history, [true])
+        addAccountSpy.completeWithError()
+        XCTAssertEqual(loadingViewSpy.history, [true, false])
+
     }
 
     func makeSUT(
         alertViewSpy: AlertViewSpy = AlertViewSpy(),
         emailValidatorSpy: EmailValidatorSpy = EmailValidatorSpy(),
-        addAccountSpy: AddAccountSpy = AddAccountSpy()
+        addAccountSpy: AddAccountSpy = AddAccountSpy(),
+        loadingViewSpy: LoadingViewSpy = LoadingViewSpy()
     ) -> SignupPresenter {
-        let sut = SignupPresenter(alertView: alertViewSpy, emailValidator: emailValidatorSpy, addAccount: addAccountSpy)
+        let sut = SignupPresenter(alertView: alertViewSpy, loadingView: loadingViewSpy, emailValidator: emailValidatorSpy, addAccount: addAccountSpy)
 
         testMemoryLeak(instance: sut)
         testMemoryLeak(instance: alertViewSpy)
+        testMemoryLeak(instance: loadingViewSpy)
         testMemoryLeak(instance: emailValidatorSpy)
         testMemoryLeak(instance: addAccountSpy)
 
@@ -140,9 +158,22 @@ class EmailValidatorSpy: EmailValidator {
 
 class AddAccountSpy: AddAccount {
     var calls = [AddAccountModel]()
+    var completions = [(Result<AccountModel, DomainError>) -> Void]()
 
-    func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, DomainError>) -> Void) {
+    func add(addAccountModel: AddAccountModel, completion: @escaping (Result<AccountModel, DomainError>) -> Void) {
         calls.append(addAccountModel)
-        completion(.failure(.unexpected))
+        completions.append(completion)
+    }
+
+    func completeWithError() {
+        completions[0](.failure(.unexpected))
+    }
+}
+
+class LoadingViewSpy: LoadingView {
+    public var history = [Bool]()
+
+    func display(isLoading: Bool) {
+        history.append(isLoading)
     }
 }

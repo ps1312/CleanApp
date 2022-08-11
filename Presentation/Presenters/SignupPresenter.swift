@@ -3,11 +3,13 @@ import Domain
 
 public final class SignupPresenter {
     public let alertView: AlertView
+    public let loadingView: LoadingView
     public let emailValidator: EmailValidator
     public let addAccount: AddAccount
 
-    public init(alertView: AlertView, emailValidator: EmailValidator, addAccount: AddAccount) {
+    public init(alertView: AlertView, loadingView: LoadingView, emailValidator: EmailValidator, addAccount: AddAccount) {
         self.alertView = alertView
+        self.loadingView = loadingView
         self.emailValidator = emailValidator
         self.addAccount = addAccount
     }
@@ -24,8 +26,11 @@ public final class SignupPresenter {
             password: viewModel.password!,
             passwordConfirmation: viewModel.passwordConfirmation!
         )
-        addAccount.add(addAccountModel: addAccountModel) { result in
-            alertView.showMessage(viewModel: AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
+
+        loadingView.display(isLoading: true)
+        addAccount.add(addAccountModel: addAccountModel) { [weak self] result in
+            self?.loadingView.display(isLoading: false)
+            self?.alertView.showMessage(viewModel: AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
         }
     }
 

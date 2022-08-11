@@ -15,5 +15,5 @@ public struct AddAccountModel: Model {
 }
 
 public protocol AddAccount {
-    func add(addAccountModel: AddAccountModel, completion: (Result<AccountModel, DomainError>) -> Void)
+    func add(addAccountModel: AddAccountModel, completion: @escaping (Result<AccountModel, DomainError>) -> Void)
 }
