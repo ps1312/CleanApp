@@ -16,51 +16,51 @@ class SignupPresenterTests: XCTestCase {
     }
 
     func testSignupDisplaysPasswordsDontMatchError() {
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: makeSignupViewModel(password: "12341234", passwordConfirmation: "senhasenha"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "As senhas devem ser iguais.")
         )
     }
 
     func testSignupDisplaysRequiredErrorWhenFieldsAreNil() {
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: nil, email: "email@mail.com", password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Nome é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: nil, password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Email é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: "email@mail.com", password: nil, passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Senha é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: "email@mail.com", password: "12341234", passwordConfirmation: nil),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Confirmação de Senha é obrigatório.")
         )
     }
 
     func testSignupDisplaysRequiredErrorWhenFieldsAreEmpty() {
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "", email: "email@mail.com", password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Nome é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: "", password: "12341234", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Email é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: "email@mail.com", password: "", passwordConfirmation: "12341234"),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Senha é obrigatório.")
         )
 
-        assertAlertViewModel(
+        assertAlertView(
             signupViewModel: SignupViewModel(name: "name", email: "email@mail.com", password: "12341234", passwordConfirmation: ""),
             expectedAlertViewModel: AlertViewModel(title: "Falha na validação!", message: "O campo Confirmação de Senha é obrigatório.")
         )
@@ -122,7 +122,7 @@ class SignupPresenterTests: XCTestCase {
         return sut
     }
 
-    func assertAlertViewModel(signupViewModel: SignupViewModel, expectedAlertViewModel: AlertViewModel) {
+    func assertAlertView(signupViewModel: SignupViewModel, expectedAlertViewModel: AlertViewModel) {
         let alertViewSpy = AlertViewSpy()
         let sut = makeSUT(alertViewSpy: alertViewSpy)
 
