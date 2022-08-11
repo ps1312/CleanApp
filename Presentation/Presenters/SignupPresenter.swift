@@ -27,9 +27,9 @@ public final class SignupPresenter {
             passwordConfirmation: viewModel.passwordConfirmation!
         )
 
-        loadingView.display(isLoading: true)
+        loadingView.display(viewModel: LoadingViewModel(isLoading: true))
         addAccount.add(addAccountModel: addAccountModel) { [weak self] result in
-            self?.loadingView.display(isLoading: false)
+            self?.loadingView.display(viewModel: LoadingViewModel(isLoading: false))
             self?.alertView.showMessage(viewModel: AlertViewModel(title: "Falha no cadastro!", message: "Ocorreu um erro ao fazer o cadastro."))
         }
     }

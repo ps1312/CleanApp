@@ -99,9 +99,9 @@ class SignupPresenterTests: XCTestCase {
 
         sut.signup(viewModel: makeSignupViewModel())
 
-        XCTAssertEqual(loadingViewSpy.history, [true])
+        XCTAssertEqual(loadingViewSpy.viewModel, LoadingViewModel(isLoading: true))
         addAccountSpy.completeWithError()
-        XCTAssertEqual(loadingViewSpy.history, [true, false])
+        XCTAssertEqual(loadingViewSpy.viewModel, LoadingViewModel( isLoading: false))
 
     }
 
@@ -171,9 +171,9 @@ class AddAccountSpy: AddAccount {
 }
 
 class LoadingViewSpy: LoadingView {
-    public var history = [Bool]()
+    var viewModel: LoadingViewModel? = nil
 
-    func display(isLoading: Bool) {
-        history.append(isLoading)
+    func display(viewModel: LoadingViewModel) {
+        self.viewModel = viewModel
     }
 }
