@@ -1,16 +1,22 @@
 import XCTest
+import Presentation
 @testable import UI
 
 class SignupViewControllerTests: XCTestCase {
-    func testSignupViewControllerDoesNotDisplayLoadingOnStart() {
+    func testSignupViewControllerImplementsLoadingView() {
+        XCTAssertNotNil(makeSUT() as LoadingView)
+    }
+
+    func testSignupViewControllerImplementsAlertView() {
+        XCTAssertNotNil(makeSUT() as AlertView)
+    }
+
+    func makeSUT() -> SignupViewController {
         let bundle = Bundle(for: SignupViewController.self)
         let storyboard = UIStoryboard(name: "Main", bundle: bundle)
         let sut = storyboard.instantiateInitialViewController() as! SignupViewController
 
-        sut.loadViewIfNeeded()
-
-        XCTAssertFalse(sut.isDisplayingLoading())
-
+        return sut
     }
 }
 
